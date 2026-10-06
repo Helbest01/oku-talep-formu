@@ -2,6 +2,9 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Osmaniye Korkut Ata Üniversitesi doldurulabilir öğrenci talep formu. Formu doldurup yazdırabilir veya PDF olarak kaydedebilirsiniz.">
+    <meta name="theme-color" content="#a80000">
     <title>Osmaniye Korkut Ata Üniversitesi - Öğrenci Talep Formu</title>
     <style>
         @page { 
@@ -42,6 +45,48 @@
             font-family: Arial, sans-serif;
         }
 
+        /* Toolbar */
+        .toolbar {
+            width: 210mm;
+            margin: 0 auto 12px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            font-family: Arial, sans-serif;
+        }
+        .toolbar p {
+            margin: 0;
+            font-size: 9.5pt;
+            color: #475569;
+        }
+        .toolbar-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .btn {
+            font: inherit;
+            font-size: 9.5pt;
+            font-weight: bold;
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            background: #ffffff;
+            color: #1e293b;
+            cursor: pointer;
+        }
+        .btn:hover { background: #f8fafc; }
+        .btn-primary {
+            background: #a80000;
+            border-color: #a80000;
+            color: #ffffff;
+        }
+        .btn-primary:hover { background: #8a0000; }
+        .btn:focus-visible {
+            outline: 2px solid #a80000;
+            outline-offset: 2px;
+        }
+
         /* Header Styles */
         .header {
             display: flex;
@@ -55,11 +100,6 @@
             width: 80px;
             height: 80px;
             flex-shrink: 0;
-        }
-        .logo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
         }
         .header-titles {
             flex-grow: 1;
@@ -79,6 +119,20 @@
             font-weight: bold;
             color: #1e293b;
             text-transform: uppercase;
+        }
+        .header-titles select {
+            font-family: inherit;
+            font-size: 10.5pt;
+            font-weight: bold;
+            color: #1e293b;
+            text-transform: uppercase;
+            text-align: center;
+            border: none;
+            border-bottom: 1px dashed #94a3b8;
+            background: transparent;
+            margin-top: 3px;
+            padding: 0 4px;
+            max-width: 100%;
         }
 
         .form-title {
@@ -127,7 +181,30 @@
         table.data-table td.value {
             width: 25%;
             color: #0f172a;
+            padding: 0;
         }
+        table.data-table td.label label { display: block; }
+
+        /* Form fields */
+        .field {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font: inherit;
+            color: #0f172a;
+            padding: 5px 8px;
+            min-height: 26px;
+        }
+        textarea.field {
+            resize: none;
+            display: block;
+        }
+        .field:focus {
+            outline: none;
+            background-color: #fffbeb;
+            box-shadow: inset 0 0 0 1.5px #a80000;
+        }
+        .field::placeholder { color: #cbd5e1; }
 
         /* Checkbox Grid */
         .checkbox-grid {
@@ -137,29 +214,60 @@
             font-size: 9pt;
             font-family: Arial, sans-serif;
             padding: 2px 4px;
+            border: none;
+            margin: 0;
         }
         .checkbox-item {
             display: flex;
             align-items: center;
             gap: 6px;
+            cursor: pointer;
         }
-        .checkbox-box {
+        .checkbox-item input {
+            appearance: none;
+            -webkit-appearance: none;
             width: 12px;
             height: 12px;
+            margin: 0;
             border: 1.5px solid #475569;
-            display: inline-block;
             flex-shrink: 0;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+            background: #ffffff;
+        }
+        .checkbox-item input::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            background: #a80000;
+            transform: scale(0);
+        }
+        .checkbox-item input:checked::before { transform: scale(1); }
+        .checkbox-item input:focus-visible {
+            outline: 2px solid #a80000;
+            outline-offset: 2px;
         }
 
         /* Lines Container */
         .lines-container {
             border: 1px solid #cbd5e1;
-            padding: 8px;
             height: 120px;
+            width: 100%;
+            padding: 0 8px;
             background-image: linear-gradient(to bottom, transparent 23px, #e2e8f0 24px);
             background-size: 100% 24px;
+            background-attachment: local;
             line-height: 24px;
             font-size: 10pt;
+            font-family: Arial, sans-serif;
+            resize: none;
+            color: #0f172a;
+            display: block;
+        }
+        .lines-container:focus {
+            outline: none;
+            border-color: #a80000;
         }
 
         /* Declaration Box */
@@ -184,6 +292,25 @@
             font-size: 9.5pt;
             font-family: Arial, sans-serif;
         }
+        .date-field {
+            font-size: 9pt;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .date-field input {
+            font: inherit;
+            color: #0f172a;
+            border: none;
+            border-bottom: 1px dashed #94a3b8;
+            background: transparent;
+            padding: 2px 4px;
+        }
+        .date-field input:focus {
+            outline: none;
+            border-bottom-color: #a80000;
+        }
         .signature-block {
             text-align: center;
             width: 200px;
@@ -195,27 +322,73 @@
             font-size: 8pt;
             color: #64748b;
         }
+        .signature-name {
+            width: 100%;
+            margin-top: 6px;
+            text-align: center;
+            font: inherit;
+            font-size: 9pt;
+            border: none;
+            background: transparent;
+            color: #0f172a;
+        }
+        .signature-name:focus {
+            outline: none;
+            background-color: #fffbeb;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
 
         /* Print Settings */
         @media print {
             body { background: none; padding: 0; }
+            .toolbar { display: none; }
             .page {
                 box-shadow: none;
                 margin: 0;
                 width: 100%;
                 height: 100vh;
             }
+            .field::placeholder,
+            .signature-name::placeholder { color: transparent; }
+            .header-titles select {
+                appearance: none;
+                -webkit-appearance: none;
+                border-bottom: none;
+            }
+            .checkbox-item input {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
         }
     </style>
 </head>
 <body>
 
-    <section class="page">
+    <div class="toolbar">
+        <p>Formu doldurduktan sonra yazdırabilir veya PDF olarak kaydedebilirsiniz.</p>
+        <div class="toolbar-actions">
+            <button type="button" class="btn" id="resetBtn">Temizle</button>
+            <button type="button" class="btn btn-primary" id="printBtn">Yazdır / PDF Kaydet</button>
+        </div>
+    </div>
+
+    <form class="page" id="talepFormu" autocomplete="on">
         <div class="page-content">
             
             <!-- Header with Logo -->
             <div class="header">
-                <div class="logo-container">
+                <div class="logo-container" aria-hidden="true">
                     <!-- SVG OKU Logo -->
                     <svg viewBox="0 0 200 230" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                         <path d="M 100 8 C 115 8 129 11 142 17 C 152 22 161 29 168 37 C 174 44 179 53 182 63 C 185 73 186 83 185 93 C 183 105 178 116 170 126 C 163 134 154 141 144 146" fill="none" stroke="#990000" stroke-width="4" stroke-linecap="round"/>
@@ -240,7 +413,12 @@
                 <div class="header-titles">
                     <h1>T.C.</h1>
                     <h1>OSMANİYE KORKUT ATA ÜNİVERSİTESİ REKTÖRLÜĞÜNE</h1>
-                    <h2>[Öğrenci İşleri Daire Başkanlığı / İlgili Dekanlık/Müdürlük]</h2>
+                    <label for="muhatap" class="sr-only">Başvurulan birim</label>
+                    <select id="muhatap" name="muhatap">
+                        <option>Öğrenci İşleri Daire Başkanlığına</option>
+                        <option>İlgili Dekanlığa</option>
+                        <option>İlgili Müdürlüğe</option>
+                    </select>
                 </div>
                 <div style="width: 80px;"></div> <!-- Dengeleme boşluğu -->
             </div>
@@ -254,57 +432,57 @@
                 <div class="section-header">1. ÖĞRENCİ BİLGİLERİ</div>
                 <table class="data-table">
                     <tr>
-                        <td class="label">T.C. Kimlik No</td>
-                        <td class="value"></td>
-                        <td class="label">Öğrenci No</td>
-                        <td class="value"></td>
+                        <td class="label"><label for="tc">T.C. Kimlik No</label></td>
+                        <td class="value"><input class="field" id="tc" name="tc" type="text" inputmode="numeric" maxlength="11" pattern="[0-9]{11}" title="11 haneli T.C. Kimlik No giriniz"></td>
+                        <td class="label"><label for="ogrenciNo">Öğrenci No</label></td>
+                        <td class="value"><input class="field" id="ogrenciNo" name="ogrenciNo" type="text" inputmode="numeric"></td>
                     </tr>
                     <tr>
-                        <td class="label">Adı Soyadı</td>
-                        <td class="value" colspan="3"></td>
+                        <td class="label"><label for="adSoyad">Adı Soyadı</label></td>
+                        <td class="value" colspan="3"><input class="field" id="adSoyad" name="adSoyad" type="text" autocomplete="name"></td>
                     </tr>
                     <tr>
-                        <td class="label">Fakülte / MYO</td>
-                        <td class="value"></td>
-                        <td class="label">Bölüm / Program</td>
-                        <td class="value"></td>
+                        <td class="label"><label for="fakulte">Fakülte / MYO</label></td>
+                        <td class="value"><input class="field" id="fakulte" name="fakulte" type="text"></td>
+                        <td class="label"><label for="bolum">Bölüm / Program</label></td>
+                        <td class="value"><input class="field" id="bolum" name="bolum" type="text"></td>
                     </tr>
                     <tr>
-                        <td class="label">Sınıf / Yarıyıl</td>
-                        <td class="value"></td>
-                        <td class="label">Telefon No</td>
-                        <td class="value"></td>
+                        <td class="label"><label for="sinif">Sınıf / Yarıyıl</label></td>
+                        <td class="value"><input class="field" id="sinif" name="sinif" type="text"></td>
+                        <td class="label"><label for="telefon">Telefon No</label></td>
+                        <td class="value"><input class="field" id="telefon" name="telefon" type="tel" autocomplete="tel" placeholder="05XX XXX XX XX"></td>
                     </tr>
                     <tr>
-                        <td class="label">E-posta Adresi</td>
-                        <td class="value" colspan="3"></td>
+                        <td class="label"><label for="eposta">E-posta Adresi</label></td>
+                        <td class="value" colspan="3"><input class="field" id="eposta" name="eposta" type="email" autocomplete="email"></td>
                     </tr>
                     <tr>
-                        <td class="label">Tebligat Adresi</td>
-                        <td class="value" colspan="3" style="height: 28px;"></td>
+                        <td class="label"><label for="adres">Tebligat Adresi</label></td>
+                        <td class="value" colspan="3"><textarea class="field" id="adres" name="adres" rows="2" autocomplete="street-address"></textarea></td>
                     </tr>
                 </table>
             </div>
 
             <!-- Bölüm 2 -->
             <div>
-                <div class="section-header">2. TALEP KONUSU</div>
-                <div class="checkbox-grid">
-                    <div class="checkbox-item"><span class="checkbox-box"></span> Belge Talebi (Transkript, Öğrenci Belgesi vb.)</div>
-                    <div class="checkbox-item"><span class="checkbox-box"></span> Mazeret Sınavı Hakkı</div>
-                    <div class="checkbox-item"><span class="checkbox-box"></span> Kayıt Dondurma / İzinli Sayılma</div>
-                    <div class="checkbox-item"><span class="checkbox-box"></span> Ders Şube / Grup Değişikliği</div>
-                    <div class="checkbox-item"><span class="checkbox-box"></span> Muafiyet ve İntibak İşlemleri</div>
-                    <div class="checkbox-item"><span class="checkbox-box"></span> Sınav Notuna / Devamsızlığa İtiraz</div>
-                    <div class="checkbox-item"><span class="checkbox-box"></span> Kayıt Sildirme / İlişik Kesme</div>
-                    <div class="checkbox-item"><span class="checkbox-box"></span> Diğer (Aşağıda Açıklayınız)</div>
-                </div>
+                <div class="section-header" id="talepKonusuBaslik">2. TALEP KONUSU</div>
+                <fieldset class="checkbox-grid" aria-labelledby="talepKonusuBaslik">
+                    <label class="checkbox-item"><input type="checkbox" name="talep" value="belge"> Belge Talebi (Transkript, Öğrenci Belgesi vb.)</label>
+                    <label class="checkbox-item"><input type="checkbox" name="talep" value="mazeret"> Mazeret Sınavı Hakkı</label>
+                    <label class="checkbox-item"><input type="checkbox" name="talep" value="kayit-dondurma"> Kayıt Dondurma / İzinli Sayılma</label>
+                    <label class="checkbox-item"><input type="checkbox" name="talep" value="sube"> Ders Şube / Grup Değişikliği</label>
+                    <label class="checkbox-item"><input type="checkbox" name="talep" value="muafiyet"> Muafiyet ve İntibak İşlemleri</label>
+                    <label class="checkbox-item"><input type="checkbox" name="talep" value="itiraz"> Sınav Notuna / Devamsızlığa İtiraz</label>
+                    <label class="checkbox-item"><input type="checkbox" name="talep" value="kayit-sildirme"> Kayıt Sildirme / İlişik Kesme</label>
+                    <label class="checkbox-item"><input type="checkbox" name="talep" value="diger"> Diğer (Aşağıda Açıklayınız)</label>
+                </fieldset>
             </div>
 
             <!-- Bölüm 3 -->
             <div>
-                <div class="section-header">3. TALEP AÇIKLAMASI VEYA GEREKÇESİ</div>
-                <div class="lines-container"></div>
+                <label for="aciklama" class="section-header" style="display: block;">3. TALEP AÇIKLAMASI VEYA GEREKÇESİ</label>
+                <textarea class="lines-container" id="aciklama" name="aciklama"></textarea>
             </div>
 
             <!-- Bölüm 4 -->
@@ -312,12 +490,12 @@
                 <div class="section-header">4. EKLER (Var ise Belirtiniz)</div>
                 <table class="data-table">
                     <tr>
-                        <td style="width: 8%; text-align: center; font-weight: bold; background-color: #f8fafc;">1</td>
-                        <td></td>
+                        <td style="width: 8%; text-align: center; font-weight: bold; background-color: #f8fafc;"><label for="ek1">1</label></td>
+                        <td class="value" style="width: auto;"><input class="field" id="ek1" name="ek1" type="text"></td>
                     </tr>
                     <tr>
-                        <td style="width: 8%; text-align: center; font-weight: bold; background-color: #f8fafc;">2</td>
-                        <td></td>
+                        <td style="width: 8%; text-align: center; font-weight: bold; background-color: #f8fafc;"><label for="ek2">2</label></td>
+                        <td class="value" style="width: auto;"><input class="field" id="ek2" name="ek2" type="text"></td>
                     </tr>
                 </table>
             </div>
@@ -329,12 +507,15 @@
                 </div>
 
                 <div class="signature-area">
-                    <div style="font-size: 9pt; color: #475569;">
-                        <strong>Tarih:</strong> ..... / ..... / 20....
+                    <div class="date-field">
+                        <label for="tarih"><strong>Tarih:</strong></label>
+                        <input type="date" id="tarih" name="tarih">
                     </div>
                     <div class="signature-block">
                         <strong>Başvuran Öğrenci</strong><br>
                         <span style="font-size: 8pt; color: #64748b;">(Ad, Soyad ve İmza)</span>
+                        <label for="imzaAd" class="sr-only">İmza için ad soyad</label>
+                        <input class="signature-name" id="imzaAd" name="imzaAd" type="text" placeholder="Ad Soyad">
                         <div class="signature-line"></div>
                     </div>
                 </div>
@@ -347,7 +528,51 @@
             <span>ÖĞRENCİ TALEP FORMU</span>
             <span>Sayfa 1 / 1</span>
         </footer>
-    </section>
+    </form>
+
+    <script>
+        (function () {
+            var form = document.getElementById('talepFormu');
+            var tarih = document.getElementById('tarih');
+            var adSoyad = document.getElementById('adSoyad');
+            var imzaAd = document.getElementById('imzaAd');
+            var imzaManuel = false;
+
+            function bugun() {
+                var d = new Date();
+                var ay = String(d.getMonth() + 1).padStart(2, '0');
+                var gun = String(d.getDate()).padStart(2, '0');
+                return d.getFullYear() + '-' + ay + '-' + gun;
+            }
+
+            tarih.value = bugun();
+
+            adSoyad.addEventListener('input', function () {
+                if (!imzaManuel) imzaAd.value = adSoyad.value;
+            });
+            imzaAd.addEventListener('input', function () {
+                imzaManuel = imzaAd.value !== '';
+            });
+
+            document.getElementById('tc').addEventListener('input', function (e) {
+                e.target.value = e.target.value.replace(/\D/g, '').slice(0, 11);
+            });
+
+            form.addEventListener('submit', function (e) { e.preventDefault(); });
+
+            document.getElementById('printBtn').addEventListener('click', function () {
+                window.print();
+            });
+
+            document.getElementById('resetBtn').addEventListener('click', function () {
+                if (confirm('Formdaki tüm bilgiler silinecek. Emin misiniz?')) {
+                    form.reset();
+                    imzaManuel = false;
+                    tarih.value = bugun();
+                }
+            });
+        })();
+    </script>
 
 </body>
 </html>
