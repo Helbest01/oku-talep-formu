@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Osmaniye Korkut Ata Üniversitesi - Öğrenci Talep Formu</title>
+    <style>
+        @page { 
+            size: A4;
+            margin: 0; 
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; background-color: #f1f5f9; }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            color: #111827;
+            padding: 20px 0;
+        }
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            padding: 15mm 18mm 12mm 18mm;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+        .page-content > * + * {
+            margin-top: 14px;
+        }
+        .page-footer {
+            margin-top: auto;
+            padding-top: 4mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 8.5pt;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header Styles */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #a80000;
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+        }
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+        }
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .header-titles {
+            flex-grow: 1;
+            text-align: center;
+            padding: 0 10px;
+        }
+        .header-titles h1 {
+            margin: 0;
+            font-size: 12pt;
+            font-weight: bold;
+            color: #a80000;
+            text-transform: uppercase;
+        }
+        .header-titles h2 {
+            margin: 3px 0 0 0;
+            font-size: 10.5pt;
+            font-weight: bold;
+            color: #1e293b;
+            text-transform: uppercase;
+        }
+
+        .form-title {
+            text-align: center;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 6px;
+            font-size: 11pt;
+            font-weight: bold;
+            color: #0f172a;
+            letter-spacing: 1px;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Section Styles */
+        .section-header {
+            font-size: 9.5pt;
+            font-weight: bold;
+            color: #a80000;
+            background-color: #fef2f2;
+            padding: 4px 8px;
+            border-left: 4px solid #a80000;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Table Styles */
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9pt;
+            font-family: Arial, sans-serif;
+        }
+        table.data-table td {
+            border: 1px solid #cbd5e1;
+            padding: 5px 8px;
+            vertical-align: middle;
+        }
+        table.data-table td.label {
+            background-color: #f8fafc;
+            font-weight: bold;
+            width: 25%;
+            color: #334155;
+        }
+        table.data-table td.value {
+            width: 25%;
+            color: #0f172a;
+        }
+
+        /* Checkbox Grid */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 12px;
+            font-size: 9pt;
+            font-family: Arial, sans-serif;
+            padding: 2px 4px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .checkbox-box {
+            width: 12px;
+            height: 12px;
+            border: 1.5px solid #475569;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        /* Lines Container */
+        .lines-container {
+            border: 1px solid #cbd5e1;
+            padding: 8px;
+            height: 120px;
+            background-image: linear-gradient(to bottom, transparent 23px, #e2e8f0 24px);
+            background-size: 100% 24px;
+            line-height: 24px;
+            font-size: 10pt;
+        }
+
+        /* Declaration Box */
+        .declaration-box {
+            font-size: 8.5pt;
+            line-height: 1.4;
+            color: #334155;
+            background-color: #fafafa;
+            border: 1px solid #e2e8f0;
+            padding: 8px 10px;
+            text-align: justify;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Signature Area */
+        .signature-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 12px;
+            padding: 0 10px;
+            font-size: 9.5pt;
+            font-family: Arial, sans-serif;
+        }
+        .signature-block {
+            text-align: center;
+            width: 200px;
+        }
+        .signature-line {
+            margin-top: 35px;
+            border-top: 1px dashed #94a3b8;
+            padding-top: 4px;
+            font-size: 8pt;
+            color: #64748b;
+        }
+
+        /* Print Settings */
+        @media print {
+            body { background: none; padding: 0; }
+            .page {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="page">
+        <div class="page-content">
+            
+            <!-- Header with Logo -->
+            <div class="header">
+                <div class="logo-container">
+                    <!-- SVG OKU Logo -->
+                    <svg viewBox="0 0 200 230" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 100 8 C 115 8 129 11 142 17 C 152 22 161 29 168 37 C 174 44 179 53 182 63 C 185 73 186 83 185 93 C 183 105 178 116 170 126 C 163 134 154 141 144 146" fill="none" stroke="#990000" stroke-width="4" stroke-linecap="round"/>
+                        <text font-family="'Times New Roman', serif" font-size="12" font-weight="bold" fill="#990000">
+                            <textPath href="#textArc" startOffset="50%" text-anchor="middle">OSMANİYE KORKUT ATA ÜNİVERSİTESİ</textPath>
+                        </text>
+                        <path id="textArc" d="M 25 110 A 85 85 0 0 1 175 110" fill="none" stroke="none"/>
+                        <g fill="#990000">
+                            <path d="M 45 45 C 30 65 30 100 45 120 C 60 140 85 145 100 125 C 110 110 105 85 90 75 C 75 65 55 75 50 90 C 45 105 55 120 70 120 C 80 120 90 110 90 100 C 90 90 80 85 70 90" fill="none" stroke="#990000" stroke-width="9" stroke-linecap="round"/>
+                            <path d="M 60 40 L 125 150 M 125 150 C 135 165 145 175 150 180 M 125 150 C 110 165 90 180 75 185" fill="none" stroke="#990000" stroke-width="9" stroke-linecap="round"/>
+                            <path d="M 75 125 C 75 160 90 180 110 180 C 130 180 145 160 145 125 L 145 100" fill="none" stroke="#990000" stroke-width="9" stroke-linecap="round"/>
+                            <circle cx="95" cy="120" r="4"/>
+                            <circle cx="125" cy="120" r="4"/>
+                            <circle cx="118" cy="138" r="2"/>
+                            <circle cx="125" cy="145" r="2"/>
+                            <circle cx="132" cy="152" r="2"/>
+                            <circle cx="138" cy="160" r="2"/>
+                            <circle cx="143" cy="169" r="2"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="header-titles">
+                    <h1>T.C.</h1>
+                    <h1>OSMANİYE KORKUT ATA ÜNİVERSİTESİ REKTÖRLÜĞÜNE</h1>
+                    <h2>[Öğrenci İşleri Daire Başkanlığı / İlgili Dekanlık/Müdürlük]</h2>
+                </div>
+                <div style="width: 80px;"></div> <!-- Dengeleme boşluğu -->
+            </div>
+
+            <div class="form-title">
+                ÖĞRENCİ TALEP FORMU
+            </div>
+
+            <!-- Bölüm 1 -->
+            <div>
+                <div class="section-header">1. ÖĞRENCİ BİLGİLERİ</div>
+                <table class="data-table">
+                    <tr>
+                        <td class="label">T.C. Kimlik No</td>
+                        <td class="value"></td>
+                        <td class="label">Öğrenci No</td>
+                        <td class="value"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Adı Soyadı</td>
+                        <td class="value" colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Fakülte / MYO</td>
+                        <td class="value"></td>
+                        <td class="label">Bölüm / Program</td>
+                        <td class="value"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Sınıf / Yarıyıl</td>
+                        <td class="value"></td>
+                        <td class="label">Telefon No</td>
+                        <td class="value"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">E-posta Adresi</td>
+                        <td class="value" colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Tebligat Adresi</td>
+                        <td class="value" colspan="3" style="height: 28px;"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Bölüm 2 -->
+            <div>
+                <div class="section-header">2. TALEP KONUSU</div>
+                <div class="checkbox-grid">
+                    <div class="checkbox-item"><span class="checkbox-box"></span> Belge Talebi (Transkript, Öğrenci Belgesi vb.)</div>
+                    <div class="checkbox-item"><span class="checkbox-box"></span> Mazeret Sınavı Hakkı</div>
+                    <div class="checkbox-item"><span class="checkbox-box"></span> Kayıt Dondurma / İzinli Sayılma</div>
+                    <div class="checkbox-item"><span class="checkbox-box"></span> Ders Şube / Grup Değişikliği</div>
+                    <div class="checkbox-item"><span class="checkbox-box"></span> Muafiyet ve İntibak İşlemleri</div>
+                    <div class="checkbox-item"><span class="checkbox-box"></span> Sınav Notuna / Devamsızlığa İtiraz</div>
+                    <div class="checkbox-item"><span class="checkbox-box"></span> Kayıt Sildirme / İlişik Kesme</div>
+                    <div class="checkbox-item"><span class="checkbox-box"></span> Diğer (Aşağıda Açıklayınız)</div>
+                </div>
+            </div>
+
+            <!-- Bölüm 3 -->
+            <div>
+                <div class="section-header">3. TALEP AÇIKLAMASI VEYA GEREKÇESİ</div>
+                <div class="lines-container"></div>
+            </div>
+
+            <!-- Bölüm 4 -->
+            <div>
+                <div class="section-header">4. EKLER (Var ise Belirtiniz)</div>
+                <table class="data-table">
+                    <tr>
+                        <td style="width: 8%; text-align: center; font-weight: bold; background-color: #f8fafc;">1</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 8%; text-align: center; font-weight: bold; background-color: #f8fafc;">2</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Bölüm 5 -->
+            <div>
+                <div class="declaration-box">
+                    <strong>BEYAN:</strong> Formda beyan ettiğim tüm bilgilerin ve sunduğum belgelerin doğru olduğunu, eksik veya yanlış bilgi vermem durumunda doğabilecek her türlü hukuki ve idari sorumluluğu kabul ettiğimi beyan ederim. Talebimin değerlendirilerek gereğinin yapılmasını arz ederim.
+                </div>
+
+                <div class="signature-area">
+                    <div style="font-size: 9pt; color: #475569;">
+                        <strong>Tarih:</strong> ..... / ..... / 20....
+                    </div>
+                    <div class="signature-block">
+                        <strong>Başvuran Öğrenci</strong><br>
+                        <span style="font-size: 8pt; color: #64748b;">(Ad, Soyad ve İmza)</span>
+                        <div class="signature-line"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="page-footer">
+            <span>Osmaniye Korkut Ata Üniversitesi</span>
+            <span>ÖĞRENCİ TALEP FORMU</span>
+            <span>Sayfa 1 / 1</span>
+        </footer>
+    </section>
+
+</body>
+</html>
